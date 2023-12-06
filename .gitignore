@@ -11,6 +11,10 @@ unisonLocal.zip
 # Cabal
 dist-newstyle
 
+# Updo
+.updo
+updo
+
 # GHC
 *.hie
 *.prof
