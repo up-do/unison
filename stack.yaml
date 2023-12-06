@@ -1,3 +1,5 @@
+user-message: "WARNING: This stack project is generated."
+
 flags:
   haskeline:
     terminfo: false
@@ -7,66 +9,71 @@ allow-different-user: true
 build:
   interleaved-output: false
 
-packages:
-- codebase2/codebase
-- codebase2/codebase-sqlite
-- codebase2/codebase-sqlite-hashing-v2
-- codebase2/codebase-sync
-- codebase2/core
-- codebase2/util-serialization
-- codebase2/util-term
-- lib/orphans/network-uri-orphans-sqlite
-- lib/orphans/unison-core-orphans-sqlite
-- lib/orphans/unison-hash-orphans-aeson
-- lib/orphans/unison-hash-orphans-sqlite
-- lib/orphans/uuid-orphans-sqlite
-- lib/unison-hash
-- lib/unison-hashing
-- lib/unison-prelude
-- lib/unison-pretty-printer
-- lib/unison-sqlite
-- lib/unison-util-base32hex
-- lib/unison-util-bytes
-- lib/unison-util-cache
-- lib/unison-util-file-embed
-- lib/unison-util-nametree
-- lib/unison-util-relation
-- lib/unison-util-rope
-- parser-typechecker
-- unison-cli
-- unison-core
-- unison-hashing-v2
-- unison-share-api
-- unison-share-projects-api
-- unison-syntax
-- yaks/easytest
+ghc-options:
+  # All packages
+  "$locals": -Wall -Werror -Wno-name-shadowing -Wno-missing-pattern-synonym-signatures -fprint-expanded-synonyms -fwrite-ide-info #-freverse-errors
+
+  # See https://github.com/haskell/haskell-language-server/issues/208
+  "$everything": -haddock
+
 
 resolver: lts-20.26
 
+# We have 32 packages.
+packages:
+  - ./codebase2/codebase
+  - ./codebase2/codebase-sqlite
+  - ./codebase2/codebase-sqlite-hashing-v2
+  - ./codebase2/codebase-sync
+  - ./codebase2/core
+  - ./codebase2/util-serialization
+  - ./codebase2/util-term
+  - ./lib/orphans/network-uri-orphans-sqlite
+  - ./lib/orphans/unison-core-orphans-sqlite
+  - ./lib/orphans/unison-hash-orphans-aeson
+  - ./lib/orphans/unison-hash-orphans-sqlite
+  - ./lib/orphans/uuid-orphans-sqlite
+  - ./lib/unison-hash
+  - ./lib/unison-hashing
+  - ./lib/unison-prelude
+  - ./lib/unison-pretty-printer
+  - ./lib/unison-sqlite
+  - ./lib/unison-util-base32hex
+  - ./lib/unison-util-bytes
+  - ./lib/unison-util-cache
+  - ./lib/unison-util-file-embed
+  - ./lib/unison-util-nametree
+  - ./lib/unison-util-relation
+  - ./lib/unison-util-rope
+  - ./parser-typechecker
+  - ./unison-cli
+  - ./unison-core
+  - ./unison-hashing-v2
+  - ./unison-share-api
+  - ./unison-share-projects-api
+  - ./unison-syntax
+  - ./yaks/easytest
+
+# We have 2 source packages:
+#   * external 0
+#   * internal 0
+#   * external forks 2
+#   * internal forks 0
 extra-deps:
-# broken version in snapshot
-- github: unisonweb/configurator
-  commit: e47e9e9fe1f576f8c835183b9def52d73c01327a
-# This custom Haskeline alters ANSI rendering on Windows.
-# If changing the haskeline dependency, please ensure color renders properly in a
-# Windows terminal.
-# https://github.com/judah/haskeline/pull/126
-- github: unisonweb/haskeline
-  commit: 9275eea7982dabbf47be2ba078ced669ae7ef3d5
+  # Source Packages, external (3rd party) forks of other repositories.
+  # Can we help upstream?
+  - git: https://github.com/unisonweb/configurator
+    commit: e47e9e9fe1f576f8c835183b9def52d73c01327a
+  - git: https://github.com/unisonweb/haskeline
+    commit: 9275eea7982dabbf47be2ba078ced669ae7ef3d5
 
-# not in stackage
-- fuzzyfind-3.0.1
-- guid-0.1.0@sha256:a7c975be473f6f142d5cc1b39bc807a99043d20b1bb0873fdfe7a3ce84d2faf1,1078
-- lock-file-0.7.0.0@sha256:3ad84b5e454145e1d928063b56abb96db24a99a21b493989520e58fa0ab37b00,4484
-- monad-validate-1.2.0.0@sha256:9850f408431098b28806dd464b6825a88a0b56c84f380d7fe0454c1df9d6f881,3505
-- recover-rtti-0.4.2@sha256:c179a303921126d8d782264e14f386c96e54a270df74be002e4c4ec3c8c7aebd,4529
-- lsp-types-2.0.1.1@sha256:fdc9e7569d5b55352ab856510b9727dd859ab6b836f276cb20b288834bca66d6,29317
-- lsp-2.0.0.0@sha256:80d7e84f79a2c8a8ee17d83ee157ed3c9b25c1716bad31dabd704bb793d32af0,3531
-- row-types-1.0.1.2@sha256:4d4c7cb95d06a32b28ba977852d52a26b4c1f695ef083a6fd874ab6d79933b64,3071
-
-ghc-options:
- # All packages
- "$locals": -Wall -Werror -Wno-name-shadowing -Wno-missing-pattern-synonym-signatures -fprint-expanded-synonyms -fwrite-ide-info #-freverse-errors
-
- # See https://github.com/haskell/haskell-language-server/issues/208
- "$everything": -haddock
+  # Package versions for published packages either not on Stackage or
+  # not matching the version on Stackage for the resolver we use.
+  # These package-version extra dependencies are equivalent to cabal constraints.
+  - fuzzyfind-3.0.1
+  - lock-file-0.7.0.0
+  - lsp-2.0.0.0
+  - lsp-types-2.0.1.1
+  - monad-validate-1.3.0.0
+  - recover-rtti-0.4.3
+  - row-types-1.0.1.2
